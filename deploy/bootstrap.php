@@ -6,10 +6,10 @@ require_once "vendor/autoload.php";
 $isDevMode = true;
 $config = Setup::createYAMLMetadataConfiguration(array(__DIR__ . "/config/yaml"), $isDevMode);
 $conn = array(
-'host' => 'host',
+'host' => 'dpg-ccuhk2kgqg4a9295cagg-a',
 'driver' => 'pdo_pgsql',
 'user' => 'cnam_user',
-'password' => 'pass',
+'password' => '0TJXmePJA9OkhPb6gllHoVZJIL6aOvDS',
 'dbname' => 'cnam',
 'port' => '5432'
 );
