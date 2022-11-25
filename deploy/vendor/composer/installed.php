@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'a9486055ce14ec9284a15681369a8756207b34e5',
+    'reference' => 'e24fb44471363fe31376b06aa2251b6147459ee7',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'a9486055ce14ec9284a15681369a8756207b34e5',
+      'reference' => 'e24fb44471363fe31376b06aa2251b6147459ee7',
     ),
     'doctrine/cache' => 
     array (
@@ -103,12 +103,12 @@
     ),
     'doctrine/orm' => 
     array (
-      'pretty_version' => '2.13.3',
-      'version' => '2.13.3.0',
+      'pretty_version' => '2.13.4',
+      'version' => '2.13.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e750360bd52b080c4cbaaee1b48b80f7dc873b36',
+      'reference' => 'a5a6cc6630ce497290396d5f206887227820a634',
     ),
     'doctrine/persistence' => 
     array (
