@@ -46,7 +46,7 @@ $options = [
 function  addHeaders (Response $response) : Response {
     $response = $response
     ->withHeader("Content-Type", "application/json")
-    ->withHeader('Access-Control-Allow-Origin', ('http://localhost'))
+    ->withHeader('Access-Control-Allow-Origin', ('https://met02web.onrender.com'))
     ->withHeader('Access-Control-Allow-Headers', 'Content-Type,  Authorization')
     ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
     ->withHeader('Access-Control-Expose-Headers', 'Authorization');
@@ -67,12 +67,6 @@ $app->get('/api/user', function (Request $request, Response $response, $args) {
 });
 
 
-$app->get('/api/hello/{name}', function (Request $request, Response $response, $args) {
-    $array = [];
-    $array ["nom"] = $args ['name'];
-    $response->getBody()->write(json_encode ($array));
-    return $response;
-});
 
 // APi d'authentification générant un JWT
 $app->post('/api/login', function (Request $request, Response $response, $args) {   
@@ -90,7 +84,7 @@ $app->post('/api/login', function (Request $request, Response $response, $args) 
 
     if (!$err) {
             $response = createJwT ($response);
-            $data = array('nom' => 'toto', 'prenom' => 'titi');
+            $data = array('login' => 'spartan5497', 'password' => 'pswd');
             $response->getBody()->write(json_encode($data));
      } else {          
             $response = $response->withStatus(401);
@@ -98,32 +92,24 @@ $app->post('/api/login', function (Request $request, Response $response, $args) 
     return $response;
 });
 
-$clients = [];
-
-
 
 $app->post('/api/client', function (Request $request, Response $response, $args) {   
+    
 
     $inputJSON = file_get_contents('php://input');
-    $body = json_decode( $inputJSON, TRUE ); //convert JSON into array 
+    $body = json_decode( $inputJSON, TRUE ); //convert JSON into array
     $lastName = $body ['lastName'] ?? ""; 
-    $err=false;
-    
-    
-    if (!$err) {
-        $jsonClient = file_get_contents("./db/dbClients.json");
-        $bodyClients = json_decode( $jsonClient, TRUE ); //convert JSON into array 
-        $array[] = array('lastName' => $lastName);
-        $jsonClient = json_encode($array);
-        file_put_contents("./db/dbClients.json", $jsonClient);
 
-        $response = addHeaders($response);
-        $response->getBody()->write($jsonClient);
-    }
-    else{          
-        $response = $response->withStatus(401);
-    }
+    $array = array('lastName' => $lastName);
+
+    $json = json_encode($array);
+
+    $response = addHeaders($response);
+    $response->getBody()->write($json);
+
+
     return $response;
+
 });
 
 
