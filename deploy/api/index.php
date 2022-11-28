@@ -66,7 +66,9 @@ $app->get('/api/clients', function (Request $request, Response $response, $args)
 // APi d'authentification générant un JWT
 $app->post('/api/login', function (Request $request, Response $response, $args) {   
     $err=false;
-    $body = $request->getParsedBody();
+    $inputJSON = file_get_contents('php://input');
+    $body = json_decode( $inputJSON, TRUE ); //convert JSON into array
+
     $login = $body ['login'] ?? "";
     $pass = $body ['password'] ?? "";
 
@@ -79,7 +81,8 @@ $app->post('/api/login', function (Request $request, Response $response, $args) 
 
     if (!$err) {
             $response = createJwT ($response);
-            $data = array('login' => 'spartan5497', 'password' => 'pswd');
+            $response = addHeaders($response);
+            $data = array('login' => $login, 'password' => $pass);
             $response->getBody()->write(json_encode($data));
      } else {          
             $response = $response->withStatus(401);
@@ -95,12 +98,13 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     $body = json_decode( $inputJSON, TRUE ); //convert JSON into array
     $lastName = $body ['lastName'] ?? ""; 
 
+    $response = addHeaders($response);
+
+
     $array = array('lastName' => $lastName);
 
-    $json = json_encode($array);
 
-    $response = addHeaders($response);
-    $response->getBody()->write($json);
+    $response->getBody()->write($array);
 
 
     return $response;
