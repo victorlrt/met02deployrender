@@ -57,11 +57,11 @@ function  addHeaders (Response $response) : Response {
 }
 
 
-$app->get('/api/clients', function (Request $request, Response $response, $args) {   
-    $response->getBody()->write(json_encode($response));
+// $app->get('/api/clients', function (Request $request, Response $response, $args) {   
+//     $response->getBody()->write(json_encode($response));
 
-    return $response;
-});
+//     return $response;
+// });
 
 
 
@@ -81,6 +81,10 @@ $app->post('/api/login', function (Request $request, Response $response, $args) 
         $err=true;
     }
 
+    global $entityManager;
+    $user = $entityManager->getRepository('Client')->findOneBy(array('login' => $login, 'password' => $password));
+
+
     if (!$err) {
             $response = createJwT ($response, $login, $password);
             $response = addHeaders($response);
@@ -91,30 +95,6 @@ $app->post('/api/login', function (Request $request, Response $response, $args) 
      }
     return $response;
 });
-
-
-$app->post('/api/client', function (Request $request, Response $response, $args) {   
-    
-
-    $inputJSON = file_get_contents('php://input');
-    $body = json_decode( $inputJSON, TRUE ); //convert JSON into array
-    $lastName = $body ['lastName'] ?? ""; 
-
-    $response = addHeaders($response);
-
-
-    $array = array('lastName' => $lastName);
-
-
-    $response->getBody()->write($array);
-
-
-    return $response;
-
-});
-
-
-
 
 
 $app->add(new Tuupola\Middleware\JwtAuthentication($options));
