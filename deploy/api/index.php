@@ -8,10 +8,10 @@ require __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/../bootstrap.php';
 require_once __DIR__ . '/model.php';
  
-const JWT_SECRET = "makey1234567";
-$app->addErrorMiddleware(true, true, true);
 
 $app = AppFactory::create();
+$app->addErrorMiddleware(true, true, true);
+const JWT_SECRET = "makey1234567";
 
 function createJwT (Response $response, $login, $password) : Response {
 
