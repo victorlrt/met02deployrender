@@ -5,8 +5,8 @@ use Slim\Factory\AppFactory;
 use Tuupola\Middleware\HttpBasicAuthentication;
 use \Firebase\JWT\JWT;
 require __DIR__ . '/../vendor/autoload.php';
-//require_once __DIR__ . '/../bootstrap.php';
-//require_once __DIR__ . '/model.php';
+require_once __DIR__ . '/../bootstrap.php';
+require_once __DIR__ . '/model.php';
  
 const JWT_SECRET = "makey1234567";
 $app->addErrorMiddleware(true, true, true);
