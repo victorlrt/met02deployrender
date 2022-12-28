@@ -5,19 +5,21 @@ use Slim\Factory\AppFactory;
 use Tuupola\Middleware\HttpBasicAuthentication;
 use \Firebase\JWT\JWT;
 require __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../bootstrap.php';
+require_once __DIR__ . '/model.php';
  
 const JWT_SECRET = "makey1234567";
+$app->addErrorMiddleware(true, true, true);
 
 $app = AppFactory::create();
 
-function createJwT (Response $response) : Response {
+function createJwT (Response $response, $login, $password) : Response {
 
     $issuedAt = time();
-    $expirationTime = $issuedAt + 60;
+    $expirationTime = $issuedAt + 700;
     $payload = array(
-    'userid' => '1',
-    'email' => 'victor.larmet@gmail.com',
-    'pseudo' => 'spartan5497',
+    'login' => $login,
+    'password' => $password,
     'iat' => $issuedAt,
     'exp' => $expirationTime
     );
@@ -46,7 +48,7 @@ $options = [
 function  addHeaders (Response $response) : Response {
     $response = $response
     ->withHeader("Content-Type", "application/json")
-    ->withHeader('Access-Control-Allow-Origin', ('https://met02web.onrender.com'))
+    ->withHeader('Access-Control-Allow-Origin', '*')
     ->withHeader('Access-Control-Allow-Headers', 'Content-Type,  Authorization')
     ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
     ->withHeader('Access-Control-Expose-Headers', 'Authorization');
@@ -70,19 +72,19 @@ $app->post('/api/login', function (Request $request, Response $response, $args) 
     $body = json_decode( $inputJSON, TRUE ); //convert JSON into array
 
     $login = $body ['login'] ?? "";
-    $pass = $body ['password'] ?? "";
+    $password = $body ['password'] ?? "";
 
     if (!preg_match("/[a-zA-Z0-9]{1,20}/",$login))   {
         $err = true;
     }
-    if (!preg_match("/[a-zA-Z0-9]{1,20}/",$pass))  {
+    if (!preg_match("/[a-zA-Z0-9]{1,20}/",$password))  {
         $err=true;
     }
 
     if (!$err) {
-            $response = createJwT ($response);
+            $response = createJwT ($response, $login, $password);
             $response = addHeaders($response);
-            $data = array('login' => $login, 'password' => $pass);
+            $data = array('login' => $login);
             $response->getBody()->write(json_encode($data));
      } else {          
             $response = $response->withStatus(401);
@@ -116,4 +118,11 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
 
 
 $app->add(new Tuupola\Middleware\JwtAuthentication($options));
+$app->add(new Tuupola\Middleware\CorsMiddleware([
+    "origin" => ["*"],
+    "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    "headers.allow" => ["Authorization", "Content-Type"],
+    "headers.expose" => ["Authorization"],
+    "headers.origin" => ["*"],
+]));
 $app->run ();
