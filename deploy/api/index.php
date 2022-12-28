@@ -5,8 +5,8 @@ use Slim\Factory\AppFactory;
 use Tuupola\Middleware\HttpBasicAuthentication;
 use \Firebase\JWT\JWT;
 require __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/../bootstrap.php';
-require_once __DIR__ . '/model.php';
+//require_once __DIR__ . '/../bootstrap.php';
+//require_once __DIR__ . '/model.php';
  
 const JWT_SECRET = "makey1234567";
 $app->addErrorMiddleware(true, true, true);
@@ -118,11 +118,11 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
 
 
 $app->add(new Tuupola\Middleware\JwtAuthentication($options));
-$app->add(new Tuupola\Middleware\CorsMiddleware([
-    "origin" => ["*"],
-    "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    "headers.allow" => ["Authorization", "Content-Type"],
-    "headers.expose" => ["Authorization"],
-    "headers.origin" => ["*"],
-]));
+// $app->add(new Tuupola\Middleware\CorsMiddleware([
+//     "origin" => ["*"],
+//     "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE"],
+//     "headers.allow" => ["Authorization", "Content-Type"],
+//     "headers.expose" => ["Authorization"],
+//     "headers.origin" => ["*"],
+// ]));
 $app->run ();
