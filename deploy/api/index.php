@@ -85,7 +85,7 @@ $app->post('/api/login', function (Request $request, Response $response, $args) 
     $user = $entityManager->getRepository('Client')->findOneBy(array('login' => $login, 'password' => $password));
 
 
-    if (!$err) {
+    if (!$err && $user) {
             $response = createJwT ($response, $login, $password);
             $response = addHeaders($response);
             $data = array('login' => $login);
