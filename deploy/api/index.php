@@ -97,6 +97,16 @@ $app->post('/api/login', function (Request $request, Response $response, $args) 
 });
 
 
+
+$app->get('/api/catalogue', function (Request $request, Response $response, $args) {
+    $json = file_get_contents("../assets/db/dbMushroom.json");
+    $array = json_decode($json, true);
+    $response = addHeaders($response);
+    $response->getBody()->write($json);
+    return $response;
+});
+
+
 $app->add(new Tuupola\Middleware\JwtAuthentication($options));
 // $app->add(new Tuupola\Middleware\CorsMiddleware([
 //     "origin" => ["*"],
