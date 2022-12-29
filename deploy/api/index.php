@@ -48,7 +48,7 @@ $options = [
 function  addHeaders (Response $response) : Response {
     $response = $response
     ->withHeader("Content-Type", "application/json")
-    ->withHeader('Access-Control-Allow-Origin', '*')
+    ->withHeader('Access-Control-Allow-Origin', ('https://met02web.onrender.com'))
     ->withHeader('Access-Control-Allow-Headers', 'Content-Type,  Authorization')
     ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
     ->withHeader('Access-Control-Expose-Headers', 'Authorization');
@@ -66,35 +66,35 @@ function  addHeaders (Response $response) : Response {
 
 
 // APi d'authentification générant un JWT
-$app->post('/api/login', function (Request $request, Response $response, $args) {   
-    $err=false;
-    $inputJSON = file_get_contents('php://input');
-    $body = json_decode( $inputJSON, TRUE ); //convert JSON into array
+// $app->post('/api/login', function (Request $request, Response $response, $args) {   
+//     $err=false;
+//     $inputJSON = file_get_contents('php://input');
+//     $body = json_decode( $inputJSON, TRUE ); //convert JSON into array
 
-    $login = $body ['login'] ?? "";
-    $password = $body ['password'] ?? "";
+//     $login = $body ['login'] ?? "";
+//     $password = $body ['password'] ?? "";
 
-    if (!preg_match("/[a-zA-Z0-9]{1,20}/",$login))   {
-        $err = true;
-    }
-    if (!preg_match("/[a-zA-Z0-9]{1,20}/",$password))  {
-        $err=true;
-    }
+//     if (!preg_match("/[a-zA-Z0-9]{1,20}/",$login))   {
+//         $err = true;
+//     }
+//     if (!preg_match("/[a-zA-Z0-9]{1,20}/",$password))  {
+//         $err=true;
+//     }
 
-    global $entityManager;
-    $user = $entityManager->getRepository('Client')->findOneBy(array('login' => $login, 'password' => $password));
+//     global $entityManager;
+//     $user = $entityManager->getRepository('Client')->findOneBy(array('login' => $login, 'password' => $password));
 
 
-    if (!$err && $user) {
-            $response = createJwT ($response, $login, $password);
-            $response = addHeaders($response);
-            $data = array('login' => $login);
-            $response->getBody()->write(json_encode($data));
-     } else {          
-            $response = $response->withStatus(401);
-     }
-    return $response;
-});
+//     if (!$err && $user) {
+//             $response = createJwT ($response, $login, $password);
+//             $response = addHeaders($response);
+//             $data = array('login' => $login);
+//             $response->getBody()->write(json_encode($data));
+//      } else {          
+//             $response = $response->withStatus(401);
+//      }
+//     return $response;
+// });
 
 
 $app->add(new Tuupola\Middleware\JwtAuthentication($options));
