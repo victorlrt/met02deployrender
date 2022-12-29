@@ -108,11 +108,11 @@ $app->get('/api/catalogue', function (Request $request, Response $response, $arg
 
 
 $app->add(new Tuupola\Middleware\JwtAuthentication($options));
-$app->add(new Tuupola\Middleware\CorsMiddleware([
-    "origin" => ["*"],
-    "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    "headers.allow" => ["Authorization", "Content-Type"],
-    "headers.expose" => ["Authorization"],
-    "headers.origin" => ["*"],
-]));
+// $app->add(new Tuupola\Middleware\CorsMiddleware([
+//     "origin" => ["*"],
+//     "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE"],
+//     "headers.allow" => ["Authorization", "Content-Type"],
+//     "headers.expose" => ["Authorization"],
+//     "headers.origin" => ["*"],
+// ]));
 $app->run ();
