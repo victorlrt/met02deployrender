@@ -13,7 +13,7 @@ class Client
     public $password;
     public $address;
     public $city;
-    public $codecity;
+    public $zipCode;
     public $country;
 
     public function setId($id)
@@ -56,9 +56,9 @@ class Client
     {
         $this->city = $city;
     }
-    public function setCodecity($codecity)
+    public function setzipCode($zipCode)
     {
-        $this->codecity = $codecity;
+        $this->zipCode = $zipCode;
     }
     public function setCountry($country)
     {

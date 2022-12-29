@@ -98,11 +98,4 @@ function  addHeaders (Response $response) : Response {
 
 
 $app->add(new Tuupola\Middleware\JwtAuthentication($options));
-// $app->add(new Tuupola\Middleware\CorsMiddleware([
-//     "origin" => ["*"],
-//     "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE"],
-//     "headers.allow" => ["Authorization", "Content-Type"],
-//     "headers.expose" => ["Authorization"],
-//     "headers.origin" => ["*"],
-// ]));
 $app->run ();
