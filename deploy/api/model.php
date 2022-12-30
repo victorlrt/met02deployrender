@@ -13,6 +13,43 @@ class Client
     public $login;
     public $password;
 
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
+    }
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+    }
+    public function setZipCode($zipCode)
+    {
+        $this->zipCode = $zipCode;
+    }
+    public function setTel($tel)
+    {
+        $this->tel = $tel;
+    }
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+    public function setGender($gender)
+    {
+        $this->gender = $gender;
+    }
+    public function setLogin($login)
+    {
+        $this->login = $login;
+    }
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
 }
 
 class Mushroom {
