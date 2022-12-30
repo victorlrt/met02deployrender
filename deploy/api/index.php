@@ -146,6 +146,8 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     //$body = json_decode( $inputJSON, TRUE ); //convert JSON into array
     //$id = $body ['id'] ?? ""; 
     $body = $request->getParsedBody();
+    $testparams = $request->getParams();
+
     $lastName = $body['lastName'] ; 
     $firstName = $body['firstName'] ;
     $zipcode= $body['zipcode'] ;
@@ -158,7 +160,8 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
 
     var_dump("body ", $body);
 
-    var_dump("firstName ", $body['firstName']);
+    var_dump("testparams ", $testparams);
+    var_dump("firstName ", $body["firstName"]);
 
     if ($err == false) {
         global $entityManager;
@@ -172,7 +175,7 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
         $client->setGender($gender);
         $client->setLogin($login);
         $client->setPassword($password);
-        var_dump("firstName ", $client);
+        var_dump("client ", $client);
 
         $entityManager->persist($client);
         $entityManager->flush();
