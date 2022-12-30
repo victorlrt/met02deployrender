@@ -146,7 +146,6 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     //$body = json_decode( $inputJSON, TRUE ); //convert JSON into array
     //$id = $body ['id'] ?? ""; 
     $body = $request->getParsedBody();
-    $testparams = $request->getParams();
 
     $lastName = $body['lastName'] ; 
     $firstName = $body['firstName'] ;
@@ -160,7 +159,6 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
 
     var_dump("body ", $body);
 
-    var_dump("testparams ", $testparams);
     var_dump("firstName ", $body["firstName"]);
 
     if ($err == false) {
