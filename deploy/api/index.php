@@ -154,8 +154,9 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     $login = $body ['login'] ?? "";
     $password = $body ['password'] ?? "";
     $err=false;
-    
+
     var_dump("response ", $response);
+    var_dump("args ", $args);
 
     var_dump("body ", $body);
     var_dump("firstName ", $firstName);
