@@ -123,7 +123,7 @@ $app->get('/api/catalogue', function (Request $request, Response $response, $arg
 //     $email = $body ['email'] ?? "";
 //     $gender = $body ['gender'] ?? "";
 //     $login = $body ['login'] ?? "";
-//     $passwordUser = $body ['password'] ?? "";
+//     $password = $body ['password'] ?? "";
 //     $err=false;
 
 
