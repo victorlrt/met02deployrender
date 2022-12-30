@@ -96,13 +96,19 @@ function  addHeaders (Response $response) : Response {
 //     return $response;
 // });
 
-
+$app->get('/api/client', function (Request $request, Response $response, $args) {
+    global $entityManager;
+    $client = $entityManager->getRepository('client')->findAll();
+    $response = addHeaders($response);
+    $response->getBody()->write(json_encode ($client));
+    return $response;
+});
 
 $app->get('/api/catalogue', function (Request $request, Response $response, $args) {
     global $entityManager;
-    $products = $entityManager->getRepository('mushroom')->findAll();
+    $mushroom = $entityManager->getRepository('mushroom')->findAll();
     $response = addHeaders($response);
-    $response->getBody()->write(json_encode ($products));
+    $response->getBody()->write(json_encode ($mushroom));
     return $response;
 });
 
