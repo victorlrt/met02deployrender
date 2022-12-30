@@ -155,6 +155,7 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     $password = $body ['password'] ;
     $err=false;
 
+    var_dump("getParsedBody ", $body = $request->getParsedBody());
     var_dump("body ", $body);
     var_dump("firstName ", $firstName);
 
