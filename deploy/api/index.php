@@ -118,7 +118,7 @@ $app->get('/api/catalogue', function (Request $request, Response $response, $arg
 //     $body = json_decode( $inputJSON, TRUE ); //convert JSON into array
 //     $lastName = $body ['lastName'] ?? ""; 
 //     $firstName = $body ['firstName'] ?? "";
-//     $zipCode = $body ['zipCode'] ?? "";
+//     $zipcode= $body ['zipcode'] ?? "";
 //     $tel = $body ['tel'] ?? "";
 //     $email = $body ['email'] ?? "";
 //     $gender = $body ['gender'] ?? "";

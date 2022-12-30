@@ -6,7 +6,7 @@ class Client
     public $id;
     public $firstname;
     public $lastname;
-    public $zipCode;
+    public $zipcode;
     public $tel;
     public $email;
     public $gender;
@@ -25,9 +25,9 @@ class Client
     {
         $this->lastname = $lastname;
     }
-    public function setZipCode($zipCode)
+    public function setZipCode($zipcode)
     {
-        $this->zipCode = $zipCode;
+        $this->zipcode= $zipcode;
     }
     public function setTel($tel)
     {
