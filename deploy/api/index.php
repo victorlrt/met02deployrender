@@ -157,9 +157,9 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     $password = $body['password'] ;
     $err=false;
 
-    print_r($body->firstName);
+    var_dump($body->firstName);
 
-    print_r($body['firstName']);
+    var_dump($body['firstName']);
 
     if ($err == false) {
         global $entityManager;
