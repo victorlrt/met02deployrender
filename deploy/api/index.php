@@ -141,7 +141,6 @@ $app->get('/api/catalogue', function (Request $request, Response $response, $arg
 //     return $response;
 // });
 
-//add client to the array ./mock/clients.json
 $app->post('/api/client', function (Request $request, Response $response, $args) {
     $inputJSON = file_get_contents('php://input');
     $body = json_decode( $inputJSON, TRUE ); //convert JSON into array
@@ -156,7 +155,7 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     $password = $body ['password'] ?? "";
     $err=false;
 
-
+    var_dump($body);
 
     if ($err == false) {
         global $entityManager;
@@ -170,6 +169,7 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
         $client->setGender($gender);
         $client->setLogin($login);
         $client->setPassword($password);
+        var_dump($client);
 
         $entityManager->persist($client);
         $entityManager->flush();
