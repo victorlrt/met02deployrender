@@ -146,6 +146,7 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     //$body = json_decode( $inputJSON, TRUE ); //convert JSON into array
     //$id = $body ['id'] ?? ""; 
     $body = $request->getParsedBody();
+    $body = json_decode( $body, TRUE ); 
 
     $lastName = $body['lastName'] ; 
     $firstName = $body['firstName'] ;
@@ -159,7 +160,7 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
 
     var_dump("body ", $body);
 
-    var_dump("firstName ", $body["firstName"]);
+    var_dump("firstName ", $body['firstName']);
 
     if ($err == false) {
         global $entityManager;
