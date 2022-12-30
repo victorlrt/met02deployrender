@@ -145,8 +145,7 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     //$inputJSON = file_get_contents('php://input');
     //$body = json_decode( $inputJSON, TRUE ); //convert JSON into array
     //$id = $body ['id'] ?? ""; 
-    $init = $request->getParsedBody();
-    $body = json_decode( $init, TRUE ); 
+    $body = $request->getParsedBody();
 
     $lastName = $body['lastName'] ; 
     $firstName = $body['firstName'] ;
@@ -158,9 +157,9 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     $password = $body['password'] ;
     $err=false;
 
-    var_dump("body ", $body);
+    print_r($body);
 
-    var_dump("firstName ", $body['firstName']);
+    print_r($body['firstName']);
 
     if ($err == false) {
         global $entityManager;
