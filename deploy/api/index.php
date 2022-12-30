@@ -107,6 +107,35 @@ $app->get('/api/catalogue', function (Request $request, Response $response, $arg
 });
 
 
+// $app->post('/api/client', function (Request $request, Response $response, $args) {
+//     $inputJSON = file_get_contents('php://input');
+//     $body = json_decode( $inputJSON, TRUE ); //convert JSON into array
+//     $lastName = $body ['lastName'] ?? ""; 
+//     $firstName = $body ['firstName'] ?? "";
+//     $zipCode = $body ['zipCode'] ?? "";
+//     $tel = $body ['tel'] ?? "";
+//     $email = $body ['email'] ?? "";
+//     $gender = $body ['gender'] ?? "";
+//     $login = $body ['login'] ?? "";
+//     $passwordUser = $body ['password'] ?? "";
+//     $err=false;
+
+
+//     if (!$err) {
+//         global $entityManager;
+
+//         $entityManager->persist($client);
+//         $entityManager->flush();
+//         $response = addHeaders($response);
+//         $response->getBody()->write(json_encode ($client));
+//     }
+//     else{          
+//         $response = $response->withStatus(401);
+//     }
+//     return $response;
+// });
+
+
 $app->add(new Tuupola\Middleware\JwtAuthentication($options));
 // $app->add(new Tuupola\Middleware\CorsMiddleware([
 //     "origin" => ["*"],
