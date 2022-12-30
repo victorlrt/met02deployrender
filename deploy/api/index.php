@@ -158,7 +158,7 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
 
     var_dump("body ", $body);
 
-    var_dump("firstName ", $firstName);
+    var_dump("firstName ", $body['firstName']);
 
     if ($err == false) {
         global $entityManager;
@@ -172,7 +172,7 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
         $client->setGender($gender);
         $client->setLogin($login);
         $client->setPassword($password);
-        var_dump("firstName ",$client);
+        var_dump("firstName ", $client);
 
         $entityManager->persist($client);
         $entityManager->flush();
