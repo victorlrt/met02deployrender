@@ -145,18 +145,15 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     $inputJSON = file_get_contents('php://input');
     $body = json_decode( $inputJSON, TRUE ); //convert JSON into array
     //$id = $body ['id'] ?? ""; 
-    $lastName = $body ['lastName'] ?? ""; 
-    $firstName = $body ['firstName'] ?? "";
-    $zipcode= $body ['zipcode'] ?? "";
-    $tel = $body ['tel'] ?? "";
-    $email = $body ['email'] ?? "";
-    $gender = $body ['gender'] ?? "";
-    $login = $body ['login'] ?? "";
-    $password = $body ['password'] ?? "";
+    $lastName = $body ['lastName'] ; 
+    $firstName = $body ['firstName'] ;
+    $zipcode= $body ['zipcode'] ;
+    $tel = $body ['tel'] ;
+    $email = $body ['email'] ;
+    $gender = $body ['gender'] ;
+    $login = $body ['login'] ;
+    $password = $body ['password'] ;
     $err=false;
-
-    var_dump("response ", $response);
-    var_dump("args ", $args);
 
     var_dump("body ", $body);
     var_dump("firstName ", $firstName);
