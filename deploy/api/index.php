@@ -158,7 +158,7 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
 
 
 
-    if (!$err) {
+    if ($err == false) {
         global $entityManager;
         $client = new Client;
         //$client->setId($id);
