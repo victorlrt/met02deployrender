@@ -13,6 +13,20 @@ class Client
     public $login;
     public $password;
 
+    // constructor
+    public function __construct($id, $firstname, $lastname, $zipcode, $tel, $email, $gender, $login, $password)
+    {
+        $this->id = $id;
+        $this->firstname = $firstname;
+        $this->lastname = $lastname;
+        $this->zipcode = $zipcode;
+        $this->tel = $tel;
+        $this->email = $email;
+        $this->gender = $gender;
+        $this->login = $login;
+        $this->password = $password;
+    }
+
     public function setId($id)
     {
         $this->id = $id;

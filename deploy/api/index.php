@@ -154,6 +154,8 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     $login = $body ['login'] ?? "";
     $password = $body ['password'] ?? "";
     $err=false;
+    
+    var_dump("response ", $response);
 
     var_dump("body ", $body);
     var_dump("firstName ", $firstName);
@@ -170,7 +172,7 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
         $client->setGender($gender);
         $client->setLogin($login);
         $client->setPassword($password);
-        var_dump($client);
+        var_dump("firstName ",$client);
 
         $entityManager->persist($client);
         $entityManager->flush();
