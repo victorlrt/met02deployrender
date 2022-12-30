@@ -142,9 +142,10 @@ $app->get('/api/catalogue', function (Request $request, Response $response, $arg
 // });
 
 $app->post('/api/client', function (Request $request, Response $response, $args) {
-    $inputJSON = file_get_contents('php://input');
-    $body = json_decode( $inputJSON, TRUE ); //convert JSON into array
+    //$inputJSON = file_get_contents('php://input');
+    //$body = json_decode( $inputJSON, TRUE ); //convert JSON into array
     //$id = $body ['id'] ?? ""; 
+    $body = $request->getParsedBody();
     $lastName = $body ['lastName'] ; 
     $firstName = $body ['firstName'] ;
     $zipcode= $body ['zipcode'] ;
@@ -155,8 +156,8 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     $password = $body ['password'] ;
     $err=false;
 
-    var_dump("getParsedBody ", $body = $request->getParsedBody());
     var_dump("body ", $body);
+    
     var_dump("firstName ", $firstName);
 
     if ($err == false) {
