@@ -141,6 +141,47 @@ $app->get('/api/catalogue', function (Request $request, Response $response, $arg
 //     return $response;
 // });
 
+//add client to the array ./mock/clients.json
+$app->post('/api/client', function (Request $request, Response $response, $args) {
+    $inputJSON = file_get_contents('php://input');
+    $body = json_decode( $inputJSON, TRUE ); //convert JSON into array
+    $id = $body ['id'] ?? ""; 
+    $lastName = $body ['lastName'] ?? ""; 
+    $firstName = $body ['firstName'] ?? "";
+    $zipcode= $body ['zipcode'] ?? "";
+    $tel = $body ['tel'] ?? "";
+    $email = $body ['email'] ?? "";
+    $gender = $body ['gender'] ?? "";
+    $login = $body ['login'] ?? "";
+    $password = $body ['password'] ?? "";
+    $err=false;
+
+
+
+    if (!$err) {
+        global $entityManager;
+        $client = new Client;
+        $client->setId($id);
+        $client->setLastName($lastName);
+        $client->setFirstName($firstName);
+        $client->setZipcode($zipcode);
+        $client->setTel($tel);
+        $client->setEmail($email);
+        $client->setGender($gender);
+        $client->setLogin($login);
+        $client->setPassword($password);
+
+        $entityManager->persist($client);
+        $entityManager->flush();
+        $response = addHeaders($response);
+        $response->getBody()->write(json_encode ($client));
+    }
+    else{          
+        $response = $response->withStatus(401);
+    }
+    return $response;
+});
+
 
 $app->add(new Tuupola\Middleware\JwtAuthentication($options));
 // $app->add(new Tuupola\Middleware\CorsMiddleware([
