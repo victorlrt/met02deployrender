@@ -147,16 +147,8 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     //$id = $body ['id'] ?? ""; 
     $body = $request->getParsedBody();
 
-    // Vérification de l'existence de la clé 'firstname' dans le tableau
-if (isset($body['firstname'])) {
-    // Récupération de la valeur de la clé 'firstname'
-    var_dump("ok");;
-    } else {
-        var_dump("pas ok");;
-    }
-
-    $lastName = $body['lastName'] ; 
-    $firstName = $body['firstName'] ;
+    $lastName = $body['lastname'] ; 
+    $firstName = $body['firstname'] ;
     $zipcode= $body['zipcode'] ;
     $tel = $body['tel'] ;
     $email = $body['email'] ;
@@ -167,7 +159,7 @@ if (isset($body['firstname'])) {
 
     var_dump($body);
 
-    var_dump($body['firstName']);
+    var_dump($body['firstname']);
 
     if ($err == false) {
         global $entityManager;
