@@ -143,7 +143,7 @@ $app->get('/api/catalogue', function (Request $request, Response $response, $arg
 
 $app->post('/api/client', function (Request $request, Response $response, $args) {
     $inputJSON = file_get_contents('php://input');
-    $body = json_decode( $inputJSON, TRUE ); //convert JSON into array
+    $body = json_decode( $inputJSON, true ); 
 
     $lastName = $body['lastname'] ; 
     $firstName = $body['firstname'] ;
@@ -173,6 +173,7 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
 
         $entityManager->persist($client);
         $entityManager->flush();
+        
         $response = addHeaders($response);
         $response->getBody()->write(json_encode ($client));
     }
