@@ -144,7 +144,6 @@ $app->get('/api/catalogue', function (Request $request, Response $response, $arg
 $app->post('/api/client', function (Request $request, Response $response, $args) {
     $inputJSON = file_get_contents('php://input');
     $body = json_decode( $inputJSON, TRUE ); //convert JSON into array
-    //$id = $body ['id'] ?? ""; 
 
     $lastName = $body['lastname'] ; 
     $firstName = $body['firstname'] ;
@@ -157,12 +156,12 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     $err=false;
 
 
-    var_dump($body['firstname']);
+    var_dump($body);
 
     if ($err == false) {
         global $entityManager;
         $client = new Client;
-        //$client->setId($id);
+        
         $client->setLastName($lastName);
         $client->setFirstName($firstName);
         $client->setZipcode($zipcode);
@@ -171,7 +170,6 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
         $client->setGender($gender);
         $client->setLogin($login);
         $client->setPassword($password);
-        // var_dump("client ", $client);
 
         $entityManager->persist($client);
         $entityManager->flush();
