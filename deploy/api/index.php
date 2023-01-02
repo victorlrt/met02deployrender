@@ -156,12 +156,12 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     $err=false;
 
 
-    var_dump($body);
+    var_dump($body['firstname']);
 
     if ($err == false) {
         global $entityManager;
         $client = new Client;
-        
+        //$client->setId($id);
         $client->setLastName($lastName);
         $client->setFirstName($firstName);
         $client->setZipcode($zipcode);
@@ -170,6 +170,7 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
         $client->setGender($gender);
         $client->setLogin($login);
         $client->setPassword($password);
+        // var_dump("client ", $client);
 
         $entityManager->persist($client);
         $entityManager->flush();
