@@ -142,10 +142,12 @@ $app->get('/api/catalogue', function (Request $request, Response $response, $arg
 // });
 
 $app->post('/api/client', function (Request $request, Response $response, $args) {
-    //$inputJSON = file_get_contents('php://input');
-    //$body = json_decode( $inputJSON, TRUE ); //convert JSON into array
+    $inputJSON = file_get_contents('php://input');
+    $test = json_decode( $inputJSON, TRUE ); //convert JSON into array
     //$id = $body ['id'] ?? ""; 
     $body = $request->getParsedBody();
+    var_dump($request);
+    var_dump($test);
 
     $lastName = $body['lastname'] ; 
     $firstName = $body['firstname'] ;
