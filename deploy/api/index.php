@@ -145,7 +145,15 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     //$inputJSON = file_get_contents('php://input');
     //$body = json_decode( $inputJSON, TRUE ); //convert JSON into array
     //$id = $body ['id'] ?? ""; 
-    $body = json_encode($request->getParsedBody());
+    $body = $request->getParsedBody();
+
+    // Vérification de l'existence de la clé 'firstname' dans le tableau
+if (isset($body['firstname'])) {
+    // Récupération de la valeur de la clé 'firstname'
+    var_dump("ok");;
+    } else {
+        var_dump("pas ok");;
+    }
 
     $lastName = $body['lastName'] ; 
     $firstName = $body['firstName'] ;
