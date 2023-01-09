@@ -185,7 +185,7 @@ $app->put('/api/client/{id}', function (Request $request, Response $response, $a
     if (!$err) {
         $id = $args ['id'];
         global $entityManager;
-        $client = $entityManager->find('Client', $id);
+        $client = $entityManager->find('client', $id);
         $client->setLastname($lastName);
         $client->setFirstname($firstName);
         $client->setZipcode($zipcode);
@@ -207,7 +207,6 @@ $app->put('/api/client/{id}', function (Request $request, Response $response, $a
     return $response;
 });
 
-//delete client to ./mock/clients.json
 $app->delete('/api/client/{id}', function (Request $request, Response $response, $args) {
     $id = $args ['id'];
     global $entityManager;
