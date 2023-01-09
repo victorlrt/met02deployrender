@@ -37,7 +37,7 @@ $options = [
     "algorithm" => ["HS256"],
     "secret" => JWT_SECRET,
     "path" => ["/api"],
-    "ignore" => ["/api/hello","/api/login","/api/client","/api/catalogue", "/api/signup"],
+    "ignore" => ["/api/hello","/api/signin", "/api/signup"],
     "error" => function ($response, $arguments) {
         $data = array('ERREUR' => 'Connexion', 'ERREUR' => 'JWT Non valide');
         $response = $response->withStatus(401);
@@ -52,7 +52,6 @@ function  addHeaders (Response $response) : Response {
     ->withHeader('Access-Control-Allow-Headers', 'Content-Type,  Authorization')
     ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
     ->withHeader('Access-Control-Expose-Headers', 'Authorization');
-
     return $response;
 }
 
@@ -184,8 +183,8 @@ $app->post('/api/signup', function (Request $request, Response $response, $args)
     $inputJSON = file_get_contents('php://input');
     $body = json_decode( $inputJSON, true ); 
 
-    $lastName = $body['lastName'] ; 
-    $firstName = $body['firstName'] ;
+    $lastName = $body['lastname'] ; 
+    $firstName = $body['firstname'] ;
     $zipcode= $body['zipcode'] ;
     $tel = $body['tel'] ;
     $email = $body['email'] ;
