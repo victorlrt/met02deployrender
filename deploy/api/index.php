@@ -192,11 +192,11 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     $password = $body['password'] ;
     $err=false;
 
-    var_dump("args" + $inputJSON);
+    var_dump("inputJSON", $inputJSON);
 
-    var_dump("args" + $args);
+    var_dump("args", $args);
 
-    var_dump("body" +$body);
+    var_dump("body", $body);
 
     if ($err == false) {
         global $entityManager;
