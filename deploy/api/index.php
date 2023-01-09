@@ -37,7 +37,7 @@ $options = [
     "algorithm" => ["HS256"],
     "secret" => JWT_SECRET,
     "path" => ["/api"],
-    "ignore" => ["/api/hello","/api/signin", "/api/signup", "/api/catalogue"],
+    "ignore" => ["/api/hello","/api/signin", "/api/client"],
     "error" => function ($response, $arguments) {
         $data = array('ERREUR' => 'Connexion', 'ERREUR' => 'JWT Non valide');
         $response = $response->withStatus(401);
@@ -178,7 +178,7 @@ $app->post('/api/signin', function (Request $request, Response $response, $args)
 });
 
 
-$app->post('/api/signup', function (Request $request, Response $response, $args) {
+$app->post('/api/client', function (Request $request, Response $response, $args) {
     $inputJSON = file_get_contents('php://input');
     $body = json_decode( $inputJSON, true ); 
 
