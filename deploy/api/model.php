@@ -25,7 +25,7 @@ class Client
     {
         $this->lastname = $lastname;
     }
-    public function setZipCode($zipcode)
+    public function setZipcode($zipcode)
     {
         $this->zipcode= $zipcode;
     }

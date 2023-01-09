@@ -96,14 +96,6 @@ function  addHeaders (Response $response) : Response {
 //     return $response;
 // });
 
-$app->get('/api/client', function (Request $request, Response $response, $args) {
-    global $entityManager;
-    $client = $entityManager->getRepository('client')->findAll();
-    $response = addHeaders($response);
-    $response->getBody()->write(json_encode ($client));
-    return $response;
-});
-
 $app->get('/api/catalogue', function (Request $request, Response $response, $args) {
     global $entityManager;
     $mushroom = $entityManager->getRepository('mushroom')->findAll();
@@ -113,39 +105,11 @@ $app->get('/api/catalogue', function (Request $request, Response $response, $arg
 });
 
 
-// $app->post('/api/client', function (Request $request, Response $response, $args) {
-//     $inputJSON = file_get_contents('php://input');
-//     $body = json_decode( $inputJSON, TRUE ); //convert JSON into array
-//     $lastName = $body ['lastName'] ?? ""; 
-//     $firstName = $body ['firstName'] ?? "";
-//     $zipcode= $body ['zipcode'] ?? "";
-//     $tel = $body ['tel'] ?? "";
-//     $email = $body ['email'] ?? "";
-//     $gender = $body ['gender'] ?? "";
-//     $login = $body ['login'] ?? "";
-//     $password = $body ['password'] ?? "";
-//     $err=false;
-
-
-//     if (!$err) {
-//         global $entityManager;
-
-//         $entityManager->persist($client);
-//         $entityManager->flush();
-//         $response = addHeaders($response);
-//         $response->getBody()->write(json_encode ($client));
-//     }
-//     else{          
-//         $response = $response->withStatus(401);
-//     }
-//     return $response;
-// });
-
-$app->post('/api/client', function (Request $request, Response $response, $args) {
-    //$inputJSON = file_get_contents('php://input');
-    //$body = json_decode( $inputJSON, TRUE ); //convert JSON into array
-    //$id = $body ['id'] ?? ""; 
-    $body = $request->getParsedBody();
+// --- Region CLIENT --- //
+$app->post('/api/signup', function (Request $request, Response $response, $args) {
+ 
+    $inputJSON = file_get_contents('php://input');
+    $body = json_decode( $inputJSON, true ); 
 
     $lastName = $body['lastName'] ; 
     $firstName = $body['firstName'] ;
@@ -157,24 +121,17 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     $password = $body['password'] ;
     $err=false;
 
-    var_dump($body);
-    var_dump($body[0]);
-
-    var_dump($body['firstName']);
-
     if ($err == false) {
         global $entityManager;
         $client = new Client;
-        //$client->setId($id);
-        $client->setLastName($lastName);
-        $client->setFirstName($firstName);
+        $client->setLastname($lastName);
+        $client->setFirstname($firstName);
         $client->setZipcode($zipcode);
         $client->setTel($tel);
         $client->setEmail($email);
         $client->setGender($gender);
         $client->setLogin($login);
         $client->setPassword($password);
-        // var_dump("client ", $client);
 
         $entityManager->persist($client);
         $entityManager->flush();
@@ -184,6 +141,80 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     else{          
         $response = $response->withStatus(401);
     }
+    return $response;
+});
+
+$app->get('/api/client', function (Request $request, Response $response, $args) {
+    global $entityManager;
+    $client = $entityManager->getRepository('client')->findAll();
+    $response = addHeaders($response);
+    $response->getBody()->write(json_encode ($client));
+    return $response;
+});
+
+$app->get('/api/client/{id}', function (Request $request, Response $response, $args) {
+    global $entityManager;
+    $id = $args ['id'];
+
+    $client = $entityManager->getRepository('client')->findOneBy(array('id' => $id));
+    $response = addHeaders($response);
+    $response->getBody()->write(json_encode ($client));
+    return $response;
+});
+
+$app->put('/api/client/{id}', function (Request $request, Response $response, $args) {
+    $inputJSON = file_get_contents('php://input');
+    $body = json_decode( $inputJSON, true ); 
+    
+    $lastName = $body['lastName'] ; 
+    $firstName = $body['firstName'] ;
+    $zipcode= $body['zipcode'] ;
+    $tel = $body['tel'] ;
+    $email = $body['email'] ;
+    $gender = $body['gender'] ;
+    $login = $body['login'] ;
+    $password = $body['password'] ;
+    $err=false;
+
+    if (empty($lastName) || empty($firstName) || empty($email) || empty($tel) || empty($zipcode) || empty($gender) || empty($login) || empty($password) || 
+        !preg_match("/^[a-zA-Z0-9]+$/", $lastName) || !preg_match("/^[a-zA-Z0-9]+$/", $firstName) ||  
+        !preg_match("/^[0-9]+$/", $zipcode) || !preg_match("/^[0-9]+$/", $tel)) {
+        $err=true;
+    }
+
+    if (!$err) {
+        $id = $args ['id'];
+        global $entityManager;
+        $client = $entityManager->find('Client', $id);
+        $client->setLastname($lastName);
+        $client->setFirstname($firstName);
+        $client->setZipcode($zipcode);
+        $client->setTel($tel);
+        $client->setEmail($email);
+        $client->setGender($gender);
+        $client->setLogin($login);
+        $client->setPassword($password);
+
+        $entityManager->persist($client);
+        $entityManager->flush();
+        $response = addHeaders($response);
+        $response->getBody()->write(json_encode ($client));
+    }
+    else{          
+        $response = $response->withStatus(401);
+    }
+    return $response;
+});
+
+//delete client to ./mock/clients.json
+$app->delete('/api/client/{id}', function (Request $request, Response $response, $args) {
+    $id = $args ['id'];
+    global $entityManager;
+    $client = $entityManager->find('client', $id);
+    $entityManager->remove($client);
+    $entityManager->flush();
+    $response = addHeaders($response);
+    $response->getBody()->write(json_encode ($client));
     return $response;
 });
 
