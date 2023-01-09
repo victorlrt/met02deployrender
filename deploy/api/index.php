@@ -37,7 +37,7 @@ $options = [
     "algorithm" => ["HS256"],
     "secret" => JWT_SECRET,
     "path" => ["/api"],
-    "ignore" => ["/api/hello","/api/signin", "/api/signup"],
+    "ignore" => ["/api/hello","/api/signin", "/api/signup", "/api/catalogue"],
     "error" => function ($response, $arguments) {
         $data = array('ERREUR' => 'Connexion', 'ERREUR' => 'JWT Non valide');
         $response = $response->withStatus(401);
@@ -192,6 +192,7 @@ $app->post('/api/signup', function (Request $request, Response $response, $args)
     $login = $body['login'] ;
     $password = $body['password'] ;
     $err=false;
+    var_dump($body);
 
     if ($err == false) {
         global $entityManager;
