@@ -162,10 +162,10 @@ $app->post('/api/signin', function (Request $request, Response $response, $args)
     }
 
     global $entityManager;
-    $user = $entityManager->getRepository('Client')->findOneBy(array('login' => $login, 'password' => $password));
-    $id = $user->getId();
+    $client = $entityManager->getRepository('client')->findOneBy(array('login' => $login, 'password' => $password));
+    $id = $client->getId();
 
-    if (!$err && $user) {
+    if (!$err && $client) {
         $response = createJwT($response, $login, $password);
         $response = addHeaders($response);
         $data = array('login' => $login, 'id' => $id);
@@ -179,7 +179,6 @@ $app->post('/api/signin', function (Request $request, Response $response, $args)
 
 
 $app->post('/api/signup', function (Request $request, Response $response, $args) {
- 
     $inputJSON = file_get_contents('php://input');
     $body = json_decode( $inputJSON, true ); 
 
@@ -192,13 +191,16 @@ $app->post('/api/signup', function (Request $request, Response $response, $args)
     $login = $body['login'] ;
     $password = $body['password'] ;
     $err=false;
+
+
     var_dump($body);
 
     if ($err == false) {
         global $entityManager;
         $client = new Client;
-        $client->setLastname($lastName);
-        $client->setFirstname($firstName);
+        
+        $client->setLastName($lastName);
+        $client->setFirstName($firstName);
         $client->setZipcode($zipcode);
         $client->setTel($tel);
         $client->setEmail($email);
@@ -208,6 +210,7 @@ $app->post('/api/signup', function (Request $request, Response $response, $args)
 
         $entityManager->persist($client);
         $entityManager->flush();
+        
         $response = addHeaders($response);
         $response->getBody()->write(json_encode ($client));
     }
