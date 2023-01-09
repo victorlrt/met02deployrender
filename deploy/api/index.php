@@ -197,6 +197,7 @@ $app->put('/api/client/{id}', function (Request $request, Response $response, $a
 
         $entityManager->persist($client);
         $entityManager->flush();
+        
         $response = addHeaders($response);
         $response->getBody()->write(json_encode ($client));
     }
