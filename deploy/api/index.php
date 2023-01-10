@@ -37,7 +37,7 @@ $options = [
     "algorithm" => ["HS256"],
     "secret" => JWT_SECRET,
     "path" => ["/api"],
-    "ignore" => ["/api/hello","/api/signin", "/api/client"],
+    "ignore" => ["/api/signin", "/api/client"],
     "error" => function ($response, $arguments) {
         $data = array('ERREUR' => 'Connexion', 'ERREUR' => 'JWT Non valide');
         $response = $response->withStatus(401);
@@ -97,6 +97,14 @@ $app->get('/api/catalogue', function (Request $request, Response $response, $arg
 $app->get('/api/catalogue/{id}', function (Request $request, Response $response, $args) {
     global $entityManager;
     $mushroom = $entityManager->getRepository('mushroom')->find($args['id']);
+    $response = addHeaders($response);
+    $response->getBody()->write(json_encode ($mushroom));
+    return $response;
+});
+
+$app->get('/api/search/{name}', function (Request $request, Response $response, $args) {
+    global $entityManager;
+    $mushroom = $entityManager->getRepository('mushroom')->find($args['name']);
     $response = addHeaders($response);
     $response->getBody()->write(json_encode ($mushroom));
     return $response;
@@ -182,8 +190,8 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     $inputJSON = file_get_contents('php://input');
     $body = json_decode( $inputJSON, true ); 
 
-    $lastName = $body['lastname'] ; 
-    $firstName = $body['firstname'] ;
+    $lastname = $body['lastname'] ; 
+    $firstname = $body['firstname'] ;
     $zipcode= $body['zipcode'] ;
     $tel = $body['tel'] ;
     $email = $body['email'] ;
@@ -202,8 +210,8 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
         global $entityManager;
         $client = new Client;
         
-        $client->setLastName($lastName);
-        $client->setFirstName($firstName);
+        $client->setlastname($lastname);
+        $client->setfirstname($firstname);
         $client->setZipcode($zipcode);
         $client->setTel($tel);
         $client->setEmail($email);
@@ -246,8 +254,8 @@ $app->put('/api/client/{id}', function (Request $request, Response $response, $a
     $inputJSON = file_get_contents('php://input');
     $body = json_decode( $inputJSON, true ); 
     
-    $lastName = $body['lastName'] ; 
-    $firstName = $body['firstName'] ;
+    $lastname = $body['lastname'] ; 
+    $firstname = $body['firstname'] ;
     $zipcode= $body['zipcode'] ;
     $tel = $body['tel'] ;
     $email = $body['email'] ;
@@ -256,18 +264,18 @@ $app->put('/api/client/{id}', function (Request $request, Response $response, $a
     $password = $body['password'] ;
     $err=false;
 
-    if (empty($lastName) || empty($firstName) || empty($email) || empty($tel) || empty($zipcode) || empty($gender) || empty($login) || empty($password) || 
-        !preg_match("/^[a-zA-Z0-9]+$/", $lastName) || !preg_match("/^[a-zA-Z0-9]+$/", $firstName) ||  
-        !preg_match("/^[0-9]+$/", $zipcode) || !preg_match("/^[0-9]+$/", $tel)) {
-        $err=true;
-    }
+    // if (empty($lastname) || empty($firstname) || empty($email) || empty($tel) || empty($zipcode) || empty($gender) || empty($login) || empty($password) || 
+    //     !preg_match("/^[a-zA-Z0-9]+$/", $lastname) || !preg_match("/^[a-zA-Z0-9]+$/", $firstname) ||  
+    //     !preg_match("/^[0-9]+$/", $zipcode) || !preg_match("/^[0-9]+$/", $tel)) {
+    //     $err=true;
+    // }
 
     if (!$err) {
         $id = $args ['id'];
         global $entityManager;
         $client = $entityManager->find('client', $id);
-        $client->setLastname($lastName);
-        $client->setFirstname($firstName);
+        $client->setlastname($lastname);
+        $client->setfirstname($firstname);
         $client->setZipcode($zipcode);
         $client->setTel($tel);
         $client->setEmail($email);
