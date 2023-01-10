@@ -6,7 +6,7 @@ require_once "vendor/autoload.php";
 $isDevMode = true;
 $config = Setup::createYAMLMetadataConfiguration(array(__DIR__ . "/config/yaml"), $isDevMode);
 $conn = array(
-'host' => 'dpg-ceuk0hg2i3ml690jjabg-a',
+'host' => 'dpg-ceuk0hg2i3ml690jjabg-a.oregon-postgres.render.com',
 'driver' => 'pdo_pgsql',
 'user' => 'met02_db_user',
 'password' => 'ETMjsEaNYe2qiQOm0QNJyECxTrj3uWUs',
