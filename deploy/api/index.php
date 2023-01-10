@@ -164,7 +164,6 @@ $app->post('/api/signin', function (Request $request, Response $response, $args)
     $login = $body['login'] ?? ""; 
     $password = $body['password'] ?? "";
 
-    //check format login and password
     if (empty($login) || empty($password)|| !preg_match("/^[a-zA-Z0-9]+$/", $login) || !preg_match("/^[a-zA-Z0-9]+$/", $password)) {
         $err=true;
     }
@@ -200,12 +199,6 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     $password = $body['password'] ;
     $err=false;
 
-    var_dump("inputJSON", $inputJSON);
-
-    var_dump("args", $args);
-
-    var_dump("body", $body);
-
     if ($err == false) {
         global $entityManager;
         $client = new Client;
@@ -218,7 +211,6 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
         $client->setGender($gender);
         $client->setLogin($login);
         $client->setPassword($password);
-        var_dump("client ", $client);
 
         $entityManager->persist($client);
         $entityManager->flush();
@@ -264,12 +256,6 @@ $app->put('/api/client/{id}', function (Request $request, Response $response, $a
     $password = $body['password'] ;
     $err=false;
 
-    // if (empty($lastname) || empty($firstname) || empty($email) || empty($tel) || empty($zipcode) || empty($gender) || empty($login) || empty($password) || 
-    //     !preg_match("/^[a-zA-Z0-9]+$/", $lastname) || !preg_match("/^[a-zA-Z0-9]+$/", $firstname) ||  
-    //     !preg_match("/^[0-9]+$/", $zipcode) || !preg_match("/^[0-9]+$/", $tel)) {
-    //     $err=true;
-    // }
-
     if (!$err) {
         $id = $args ['id'];
         global $entityManager;
@@ -308,11 +294,4 @@ $app->delete('/api/client/{id}', function (Request $request, Response $response,
 
 
 $app->add(new Tuupola\Middleware\JwtAuthentication($options));
-// $app->add(new Tuupola\Middleware\CorsMiddleware([
-//     "origin" => ["*"],
-//     "methods" => ["GET", "POST", "PUT", "PATCH", "DELETE"],
-//     "headers.allow" => ["Authorization", "Content-Type"],
-//     "headers.expose" => ["Authorization"],
-//     "headers.origin" => ["*"],
-// ]));
 $app->run ();
