@@ -57,91 +57,91 @@ function  addHeaders (Response $response) : Response {
 
 
 // --- Region CATALOGUE --- //
-$app->post('/api/catalogue', function (Request $request, Response $response, $args) {
-    $inputJSON = file_get_contents('php://input');
-    $body = json_decode( $inputJSON, true ); 
+// $app->post('/api/catalogue', function (Request $request, Response $response, $args) {
+//     $inputJSON = file_get_contents('php://input');
+//     $body = json_decode( $inputJSON, true ); 
 
-    $name = $body['name'] ; 
-    $edible = $body['edible'] ;
-    $poisonous = $body['poisonous'] ;
-    $img = $body['img'] ;
-    $description = $body['description'] ;
-    $toxicity = $body['toxicity'] ;
-    $err=false;
+//     $name = $body['name'] ; 
+//     $edible = $body['edible'] ;
+//     $poisonous = $body['poisonous'] ;
+//     $img = $body['img'] ;
+//     $description = $body['description'] ;
+//     $toxicity = $body['toxicity'] ;
+//     $err=false;
 
-    if ($err == false) {
-        global $entityManager;
-        $mushroom = new Mushroom;
-        $mushroom->setName($name);
-        $mushroom->setEdible($edible);
-        $mushroom->setPoisonous($poisonous);
-        $mushroom->setImg($img);
-        $mushroom->setDescription($description);
-        $mushroom->setToxicity($toxicity);
-        $entityManager->persist($mushroom);
-        $entityManager->flush();
-        $response = addHeaders($response);
-        $response->getBody()->write(json_encode ($mushroom));
-        return $response;
-    }
-});
+//     if ($err == false) {
+//         global $entityManager;
+//         $mushroom = new Mushroom;
+//         $mushroom->setName($name);
+//         $mushroom->setEdible($edible);
+//         $mushroom->setPoisonous($poisonous);
+//         $mushroom->setImg($img);
+//         $mushroom->setDescription($description);
+//         $mushroom->setToxicity($toxicity);
+//         $entityManager->persist($mushroom);
+//         $entityManager->flush();
+//         $response = addHeaders($response);
+//         $response->getBody()->write(json_encode ($mushroom));
+//         return $response;
+//     }
+// });
 
-$app->get('/api/catalogue', function (Request $request, Response $response, $args) {
-    global $entityManager;
-    $mushroom = $entityManager->getRepository('mushroom')->findAll();
-    $response = addHeaders($response);
-    $response->getBody()->write(json_encode ($mushroom));
-    return $response;
-});
+// $app->get('/api/catalogue', function (Request $request, Response $response, $args) {
+//     global $entityManager;
+//     $mushroom = $entityManager->getRepository('mushroom')->findAll();
+//     $response = addHeaders($response);
+//     $response->getBody()->write(json_encode ($mushroom));
+//     return $response;
+// });
 
-$app->get('/api/catalogue/{id}', function (Request $request, Response $response, $args) {
-    global $entityManager;
-    $mushroom = $entityManager->getRepository('mushroom')->find($args['id']);
-    $response = addHeaders($response);
-    $response->getBody()->write(json_encode ($mushroom));
-    return $response;
-});
+// $app->get('/api/catalogue/{id}', function (Request $request, Response $response, $args) {
+//     global $entityManager;
+//     $mushroom = $entityManager->getRepository('mushroom')->find($args['id']);
+//     $response = addHeaders($response);
+//     $response->getBody()->write(json_encode ($mushroom));
+//     return $response;
+// });
 
-$app->put('/api/catalogue/{id}', function (Request $request, Response $response, $args) {
-    $inputJSON = file_get_contents('php://input');
-    $body = json_decode( $inputJSON, true ); 
+// $app->put('/api/catalogue/{id}', function (Request $request, Response $response, $args) {
+//     $inputJSON = file_get_contents('php://input');
+//     $body = json_decode( $inputJSON, true ); 
 
-    $name = $body['name'] ; 
-    $edible = $body['edible'] ;
-    $poisonous = $body['poisonous'] ;
-    $img = $body['img'] ;
-    $description = $body['description'] ;
-    $toxicity = $body['toxicity'] ;
+//     $name = $body['name'] ; 
+//     $edible = $body['edible'] ;
+//     $poisonous = $body['poisonous'] ;
+//     $img = $body['img'] ;
+//     $description = $body['description'] ;
+//     $toxicity = $body['toxicity'] ;
 
-    $err=false;
+//     $err=false;
 
-    if ($err == false) {
-        global $entityManager;
-        $mushroom = $entityManager->getRepository('mushroom')->find($args['id']);
-        $mushroom->setName($name);
-        $mushroom->setEdible($edible);
-        $mushroom->setPoisonous($poisonous);
-        $mushroom->setImg($img);
-        $mushroom->setDescription($description);
-        $mushroom->setToxicity($toxicity);
+//     if ($err == false) {
+//         global $entityManager;
+//         $mushroom = $entityManager->getRepository('mushroom')->find($args['id']);
+//         $mushroom->setName($name);
+//         $mushroom->setEdible($edible);
+//         $mushroom->setPoisonous($poisonous);
+//         $mushroom->setImg($img);
+//         $mushroom->setDescription($description);
+//         $mushroom->setToxicity($toxicity);
 
-        $entityManager->persist($mushroom);
-        $entityManager->flush();
-        $response = addHeaders($response);
-        $response->getBody()->write(json_encode ($mushroom));
-        return $response;
-    }
-});
+//         $entityManager->persist($mushroom);
+//         $entityManager->flush();
+//         $response = addHeaders($response);
+//         $response->getBody()->write(json_encode ($mushroom));
+//         return $response;
+//     }
+// });
 
-$app->delete('/api/catalogue/{id}', function (Request $request, Response $response, $args) {
-    global $entityManager;
-    $mushroom = $entityManager->getRepository('mushroom')->find($args['id']);
-    $entityManager->remove($mushroom);
-    $entityManager->flush();
-    $response = addHeaders($response);
-    $response->getBody()->write(json_encode ($mushroom));
-    return $response;
-});
+// $app->delete('/api/catalogue/{id}', function (Request $request, Response $response, $args) {
+//     global $entityManager;
+//     $mushroom = $entityManager->getRepository('mushroom')->find($args['id']);
+//     $entityManager->remove($mushroom);
+//     $entityManager->flush();
+//     $response = addHeaders($response);
+//     $response->getBody()->write(json_encode ($mushroom));
+//     return $response;
+// });
 
 
 
@@ -149,33 +149,33 @@ $app->delete('/api/catalogue/{id}', function (Request $request, Response $respon
 
 
 //login
-$app->post('/api/signin', function (Request $request, Response $response, $args) {   
-    $err=false;
-    $inputJSON = file_get_contents('php://input');
-    $body = json_decode( $inputJSON, TRUE ); 
-    $login = $body['login'] ?? ""; 
-    $password = $body['password'] ?? "";
+// $app->post('/api/signin', function (Request $request, Response $response, $args) {   
+//     $err=false;
+//     $inputJSON = file_get_contents('php://input');
+//     $body = json_decode( $inputJSON, TRUE ); 
+//     $login = $body['login'] ?? ""; 
+//     $password = $body['password'] ?? "";
 
-    //check format login and password
-    if (empty($login) || empty($password)|| !preg_match("/^[a-zA-Z0-9]+$/", $login) || !preg_match("/^[a-zA-Z0-9]+$/", $password)) {
-        $err=true;
-    }
+//     //check format login and password
+//     if (empty($login) || empty($password)|| !preg_match("/^[a-zA-Z0-9]+$/", $login) || !preg_match("/^[a-zA-Z0-9]+$/", $password)) {
+//         $err=true;
+//     }
 
-    global $entityManager;
-    $client = $entityManager->getRepository('client')->findOneBy(array('login' => $login, 'password' => $password));
-    $id = $client->getId();
+//     global $entityManager;
+//     $client = $entityManager->getRepository('client')->findOneBy(array('login' => $login, 'password' => $password));
+//     $id = $client->getId();
 
-    if (!$err && $client) {
-        $response = createJwT($response, $login, $password);
-        $response = addHeaders($response);
-        $data = array('login' => $login, 'id' => $id);
-        $response->getBody()->write(json_encode($data));
-    }
-    else{          
-        $response = $response->withStatus(401);
-    }
-    return $response;
-});
+//     if (!$err && $client) {
+//         $response = createJwT($response, $login, $password);
+//         $response = addHeaders($response);
+//         $data = array('login' => $login, 'id' => $id);
+//         $response->getBody()->write(json_encode($data));
+//     }
+//     else{          
+//         $response = $response->withStatus(401);
+//     }
+//     return $response;
+// });
 
 
 $app->post('/api/client', function (Request $request, Response $response, $args) {
@@ -223,79 +223,79 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
     return $response;
 });
 
-$app->get('/api/client', function (Request $request, Response $response, $args) {
-    global $entityManager;
-    $client = $entityManager->getRepository('client')->findAll();
-    $response = addHeaders($response);
-    $response->getBody()->write(json_encode ($client));
-    return $response;
-});
+// $app->get('/api/client', function (Request $request, Response $response, $args) {
+//     global $entityManager;
+//     $client = $entityManager->getRepository('client')->findAll();
+//     $response = addHeaders($response);
+//     $response->getBody()->write(json_encode ($client));
+//     return $response;
+// });
 
-$app->get('/api/client/{id}', function (Request $request, Response $response, $args) {
-    global $entityManager;
-    $id = $args ['id'];
+// $app->get('/api/client/{id}', function (Request $request, Response $response, $args) {
+//     global $entityManager;
+//     $id = $args ['id'];
 
-    $client = $entityManager->getRepository('client')->findOneBy(array('id' => $id));
-    $response = addHeaders($response);
-    $response->getBody()->write(json_encode ($client));
-    return $response;
-});
+//     $client = $entityManager->getRepository('client')->findOneBy(array('id' => $id));
+//     $response = addHeaders($response);
+//     $response->getBody()->write(json_encode ($client));
+//     return $response;
+// });
 
-$app->put('/api/client/{id}', function (Request $request, Response $response, $args) {
-    $inputJSON = file_get_contents('php://input');
-    $body = json_decode( $inputJSON, true ); 
+// $app->put('/api/client/{id}', function (Request $request, Response $response, $args) {
+//     $inputJSON = file_get_contents('php://input');
+//     $body = json_decode( $inputJSON, true ); 
     
-    $lastName = $body['lastName'] ; 
-    $firstName = $body['firstName'] ;
-    $zipcode= $body['zipcode'] ;
-    $tel = $body['tel'] ;
-    $email = $body['email'] ;
-    $gender = $body['gender'] ;
-    $login = $body['login'] ;
-    $password = $body['password'] ;
-    $err=false;
+//     $lastName = $body['lastName'] ; 
+//     $firstName = $body['firstName'] ;
+//     $zipcode= $body['zipcode'] ;
+//     $tel = $body['tel'] ;
+//     $email = $body['email'] ;
+//     $gender = $body['gender'] ;
+//     $login = $body['login'] ;
+//     $password = $body['password'] ;
+//     $err=false;
 
-    if (empty($lastName) || empty($firstName) || empty($email) || empty($tel) || empty($zipcode) || empty($gender) || empty($login) || empty($password) || 
-        !preg_match("/^[a-zA-Z0-9]+$/", $lastName) || !preg_match("/^[a-zA-Z0-9]+$/", $firstName) ||  
-        !preg_match("/^[0-9]+$/", $zipcode) || !preg_match("/^[0-9]+$/", $tel)) {
-        $err=true;
-    }
+//     if (empty($lastName) || empty($firstName) || empty($email) || empty($tel) || empty($zipcode) || empty($gender) || empty($login) || empty($password) || 
+//         !preg_match("/^[a-zA-Z0-9]+$/", $lastName) || !preg_match("/^[a-zA-Z0-9]+$/", $firstName) ||  
+//         !preg_match("/^[0-9]+$/", $zipcode) || !preg_match("/^[0-9]+$/", $tel)) {
+//         $err=true;
+//     }
 
-    if (!$err) {
-        $id = $args ['id'];
-        global $entityManager;
-        $client = $entityManager->find('client', $id);
-        $client->setLastname($lastName);
-        $client->setFirstname($firstName);
-        $client->setZipcode($zipcode);
-        $client->setTel($tel);
-        $client->setEmail($email);
-        $client->setGender($gender);
-        $client->setLogin($login);
-        $client->setPassword($password);
+//     if (!$err) {
+//         $id = $args ['id'];
+//         global $entityManager;
+//         $client = $entityManager->find('client', $id);
+//         $client->setLastname($lastName);
+//         $client->setFirstname($firstName);
+//         $client->setZipcode($zipcode);
+//         $client->setTel($tel);
+//         $client->setEmail($email);
+//         $client->setGender($gender);
+//         $client->setLogin($login);
+//         $client->setPassword($password);
 
-        $entityManager->persist($client);
-        $entityManager->flush();
+//         $entityManager->persist($client);
+//         $entityManager->flush();
         
-        $response = addHeaders($response);
-        $response->getBody()->write(json_encode ($client));
-    }
-    else{          
-        $response = $response->withStatus(401);
-    }
-    return $response;
-});
+//         $response = addHeaders($response);
+//         $response->getBody()->write(json_encode ($client));
+//     }
+//     else{          
+//         $response = $response->withStatus(401);
+//     }
+//     return $response;
+// });
 
-$app->delete('/api/client/{id}', function (Request $request, Response $response, $args) {
-    $id = $args ['id'];
-    global $entityManager;
-    $client = $entityManager->find('client', $id);
-    $entityManager->remove($client);
-    $entityManager->flush();
-    $response = addHeaders($response);
-    $response->getBody()->write(json_encode ($client));
-    return $response;
-});
+// $app->delete('/api/client/{id}', function (Request $request, Response $response, $args) {
+//     $id = $args ['id'];
+//     global $entityManager;
+//     $client = $entityManager->find('client', $id);
+//     $entityManager->remove($client);
+//     $entityManager->flush();
+//     $response = addHeaders($response);
+//     $response->getBody()->write(json_encode ($client));
+//     return $response;
+// });
 
 
 $app->add(new Tuupola\Middleware\JwtAuthentication($options));
