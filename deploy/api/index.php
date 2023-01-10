@@ -210,6 +210,7 @@ $app->post('/api/client', function (Request $request, Response $response, $args)
         $client->setGender($gender);
         $client->setLogin($login);
         $client->setPassword($password);
+        var_dump("client ", $client);
 
         $entityManager->persist($client);
         $entityManager->flush();
